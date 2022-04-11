@@ -1,6 +1,7 @@
 import plotly.express as px
 import plotly.io as pio
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import numpy as np
 
 # Create my own template and set it as default -------------------------
@@ -189,3 +190,48 @@ def scatter_histogram(samples, bins='auto', error_y=None, density=None, nan_poli
 		if error_y.get('visible') is None:
 			error_y['visible'] = True # For me it is obvious that you want to display the errors is you are giving them to me... So I default this to `True`.
 	return go.Scatter(x = bin_centers, y = hist, error_y = error_y, line_shape=line_shape, **kwargs)
+
+def scatter_matrix_histogram(data_frame, dimensions=None, contour:bool=True):
+	"""Produce a scatter matrix plot (https://plotly.com/python/splom/)
+	but with 2D histograms.
+	
+	Parameters
+	----------
+	data_frame: pandas.DataFrame
+		Data frame containing the data to plot.
+	dimensions: list of str
+		Either names of columns in `data_frame`, or pandas Series, or 
+		array_like objects Values from these columns are used for 
+		multidimensional visualization.
+	"""
+	if not isinstance(dimensions, list) or any([not isinstance(s,str) for s in dimensions]) or any([s not in data_frame.columns for s in dimensions]):
+		raise TypeError(f'`dimensions` must be a list of strings naming columns in the `data_frame`.')
+	data_frame = data_frame[dimensions]
+	
+	if contour == False:
+		raise NotImplementedError(f'`contour=False` is not implemented yet.')
+	
+	fig = make_subplots(
+		len(data_frame.columns), 
+		len(data_frame.columns),
+		shared_xaxes = True,
+		shared_yaxes = True,
+		horizontal_spacing = .01,
+		vertical_spacing = .01,
+	)
+	for n_col, col_name in enumerate(data_frame.columns):
+		for n_row, row_name in enumerate(data_frame.columns):
+			fig.add_trace(
+				go.Histogram2dContour(
+					x = data_frame[col_name],
+					y = data_frame[row_name],
+				),
+				row = n_row+1,
+				col = n_col+1,
+			)
+			if n_col == 0:
+				fig.update_yaxes(title_text = row_name, row = n_row+1, col = n_col+1)
+			if n_row == len(data_frame.columns)-1:
+				fig.update_xaxes(title_text = col_name, row = n_row+1, col = n_col+1)
+	fig.update_traces(showscale=False)
+	return fig
