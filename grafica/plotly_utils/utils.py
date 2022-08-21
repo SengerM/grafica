@@ -8,11 +8,12 @@ import numpy as np
 MARKERS = ['circle', 'cross', 'x', 'triangle-up', 'star', 'hexagram', 'square', 'diamond', 'hourglass', 'bowtie', 'pentagon', 'triangle-down', 'triangle-left', 'triangle-right', 'star-triangle-up', 'star-triangle-down', 'star-square', 'star-diamond', 'diamond-tall', 'diamond-wide', 'triangle-ne', 'triangle-se', 'triangle-sw', 'triangle-nw',  'hexagon', 'hexagon2', 'octagon']
 my_template = pio.templates['plotly']
 my_template.data.scatter = [
-    go.Scatter(marker=dict(symbol=s, size=12)) for s in MARKERS
+    go.Scatter(marker=dict(symbol=s), error_y=dict(width=1, thickness=.8)) for s in MARKERS
 ]
 
-pio.templates['my_template'] = my_template
-pio.templates.default = 'my_template'
+def set_my_template_as_default():
+	pio.templates['my_template'] = my_template
+	pio.templates.default = 'my_template'
 
 # ----------------------------------------------------------------------
 
