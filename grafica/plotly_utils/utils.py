@@ -33,7 +33,7 @@ def add_grouped_legend(fig, data_frame, x, graph_dimensions):
 	- fig: The figure in which to add such grouped legend.
 	- data_frame: The data frame from which to create the legend, in principle it should be the same that was plotted in `fig`.
 	- graph_dimensions: A dictionary with the arguments such as `color`, `symbol`, `line_dash` passed to plotly.express functions you want to group, with the names of the columns in the data_frame."""
-	param_list = [{'px': {dimension: dimension_value}, 'lg': {'legendgrouptitle_text': dimension_value}} for dimension, dimension_value in graph_dimensions.items()]
+	param_list = [{'px': {dimension: dimension_value}, 'lg': {'legendgrouptitle_text': dimension_value}} for dimension, dimension_value in sorted(graph_dimensions.items())]
 	legend_traces = []
 	for param in param_list:
 		this_dimension_trace = px.line(
