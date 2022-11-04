@@ -4,25 +4,31 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 
-# Create my own template and set it as default -------------------------
-MARKERS = ['circle', 'cross', 'x', 'triangle-up', 'star', 'hexagram', 'square', 'diamond', 'hourglass', 'bowtie', 'pentagon', 'triangle-down', 'triangle-left', 'triangle-right', 'star-triangle-up', 'star-triangle-down', 'star-square', 'star-diamond', 'diamond-tall', 'diamond-wide', 'triangle-ne', 'triangle-se', 'triangle-sw', 'triangle-nw',  'hexagon', 'hexagon2', 'octagon']
-my_template = pio.templates['plotly']
-my_template.data.scatter = [
-    go.Scatter(
-		marker = dict(
-			symbol = s, 
-			line = dict(
-					width = .5,
-			),
-		), 
-		error_y = dict(
-			width = 1, 
-			thickness = .8
-			)
-		) for s in MARKERS
-]
-
 def set_my_template_as_default():
+	MARKERS = ['circle', 'cross', 'x', 'triangle-up', 'star', 'hexagram', 'square', 'diamond', 'hourglass', 'bowtie', 'pentagon', 'triangle-down', 'triangle-left', 'triangle-right', 'star-triangle-up', 'star-triangle-down', 'star-square', 'star-diamond', 'diamond-tall', 'diamond-wide', 'triangle-ne', 'triangle-se', 'triangle-sw', 'triangle-nw',  'hexagon', 'hexagon2', 'octagon']
+	FONT_FAMILY = 'Comfortaa'
+	my_template = pio.templates['plotly']
+	my_template.data.scatter = [
+		go.Scatter(
+			marker = dict(
+				symbol = s, 
+				line = dict(
+						width = .5,
+				),
+			), 
+			error_y = dict(
+				width = 1, 
+				thickness = .8
+				)
+			) for s in MARKERS
+	]
+	my_template.layout['font'] = dict(
+		family = FONT_FAMILY,
+	)
+	my_template.layout['hoverlabel'] = dict(
+		font_family = FONT_FAMILY
+	)
+	
 	pio.templates['my_template'] = my_template
 	pio.templates.default = 'my_template'
 
