@@ -28,7 +28,9 @@ def set_my_template_as_default():
 	my_template.layout['hoverlabel'] = dict(
 		font_family = FONT_FAMILY
 	)
-	
+	my_template.layout['legend'] = dict(
+		valign = 'top',
+	)
 	pio.templates['my_template'] = my_template
 	pio.templates.default = 'my_template'
 
