@@ -1,4 +1,6 @@
-# grafica
+# grafica (DEPRECATED)
+
+**DEPRECATED!** The idea was nice, but too much work. I just ended up using Plotly, and put all my utilities together in [plotly_utils](https://github.com/SengerM/plotly_utils).
 
 My personal unified interface for doing plots. The idea is to wrap any plotting package (Matplotlib, Plotly, etc.) with a simple and unique interface, at least for "basic everyday" plots. So then you write one code to plot with any package.
 

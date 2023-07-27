@@ -1,4 +1,7 @@
 from .FigureManager import FigureManager
+import warnings
+
+warnings.warn('`grafica` is not maintained anymore, all my plotly utils were moved to https://github.com/SengerM/plotly_utils', DeprecationWarning, stacklevel=2)
 
 manager = FigureManager()
 
